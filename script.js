@@ -1,15 +1,17 @@
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.desktop-nav');
 
-toggle.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(isOpen));
-});
+if (toggle && nav) {
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
 
-nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
-}));
+  nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+}
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -22,9 +24,12 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
-document.querySelector('#signup-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const email = document.querySelector('#email');
-  document.querySelector('.form-message').textContent = `✓ Gracias. Avisaremos a ${email.value} cuando tengamos novedades.`;
-  event.target.reset();
-});
+const signupForm = document.querySelector('#signup-form');
+if (signupForm) {
+  signupForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = document.querySelector('#email');
+    document.querySelector('.form-message').textContent = `✓ Gracias. Avisaremos a ${email.value} cuando tengamos novedades.`;
+    event.target.reset();
+  });
+}
